@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}">
+
+
+</head>
+
+
+<body>
+<header th:replace="~{fragments::maintop}">
+</header>
+
+<section class="pt-150 pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 m-auto">
+
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
+                            <div class="padding_eight_all bg-white">
+                                <div class="heading_s1">
+                                    <h3 class="mb-30">OTP Verification</h3>
+                                </div>
+                                <div th:if="${param.error}">
+                                    <div class="alert alert-danger">OTP entered is incorrect.Please Enter Correct OTP.
+                                    </div>
+                                </div>
+                                <!--                <div th:if="${param.logout}">-->
+                                <!--                  <div class="alert alert-success">You have been logged out.</div>-->
+                                <!--                </div>-->
+
+
+                                <div>
+                                    <form method="post" th:action="@{/forgot-password/otpVerification}"
+                                          th:object="${data}">
+                                        <div class="form-group">
+                                            <label class="control-label" placeholder="Enter your OTP">
+                                            </label>
+                                            <input id="username" hidden="hidden" class="form-control"
+                                                   th:value="*{username}" th:field="*{username}" required
+                                                   autofocus="autofocus"/>
+                                            <input id="otp" class="form-control" th:field="*{otp}" required
+                                                   autofocus="autofocus"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button  type="submit" class="btn btn-primary">
+                                                Submit
+                                            </button>
+                                            <div id="otp-timer"></div>
+                                            <span><a th:href="@{/login}">Go back to Login</a></span>
+                                        </div>
+
+                                        <!--                                        <div class="form-group">-->
+                                        <!--                                            <button type="submit" class="btn btn-primary" onclick="submitForm()">-->
+                                        <!--                                                Submit-->
+                                        <!--                                            </button>-->
+
+                                        <!--                                            <div id="otp-timer"></div>-->
+                                        <!--                                            <span><a th:href="@{/passwordResetPage}">Go back to Login</a></span>-->
+                                        <!--                                        </div>-->
+
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<script>-->
+<!--    function submitForm() {-->
+<!--        document.forms[0].action = "/forgot-password/otpVerification";-->
+<!--        document.forms[0].submit();-->
+<!--    }-->
+<!--</script>-->
+<!--<footer th:replace="~{fragments::downbar}">-->
+
+</footer>
+
+
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<!-- Template  JS -->
+<script th:src="@{.//js/main.js?v=3.4}"></script>
+
+<script th:inline="javascript">
+    // Get the OTP expiry duration in milliseconds from the server-side
+    var otpExpiryDuration = 300000; // Example: 5 minutes in milliseconds
+
+    // Get the OTP generation time in milliseconds from the server-side
+    var otpGenerationTime = [[${otpGenerationTime}]];
+
+
+    // Update the countdown every second
+    var countdownInterval = setInterval(function () {
+        var currentTime = new Date().getTime();
+        var timeRemaining = otpGenerationTime + otpExpiryDuration - currentTime;
+
+        // Calculate minutes and seconds
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        // Display the timer
+        document.getElementById("otp-timer").innerHTML = "Time remaining: " + minutes + "m " + seconds + "s ";
+
+        // If the timer reaches zero, handle as needed
+        if (timeRemaining <= 0) {
+            clearInterval(countdownInterval);
+            // Handle OTP expiration (e.g., display an error message)
+            document.getElementById("otp-timer").innerHTML = "OTP has expired. Please request a new OTP.";
+            // Optionally, you can redirect the user to the registration page or handle the expiration in another way
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>

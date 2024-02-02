@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments::head}"></head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body>
+<header th:replace="~{fragments::maintop}">
+</header>
+
+<div class="container mt-100">
+
+    <h3 class="text-center">Customer Wallet Details</h3>
+
+    <div class="text-center">
+        <h5>Customer Name: [(${wallet.customer.getFirstName()})]</h5>
+        <h5>Wallet Balance: ₹[(${wallet.balance})]</h5>
+    </div>
+
+
+    <div class="wallet-form" >
+        <h5>Add Amount to Wallet</h5>
+        <form id="walletForm">
+            <label for="amount">Amount to Add:</label>
+            <input type="number" id="amount" name="amount"  min="0" max="99999" placeholder="min 0 and max 99999" required>
+            <button class="btn btn-fill-out btn-block hover-up" onclick="addWallet()">Add</button>
+        </form>
+    </div>
+
+    <div class="table-main table-responsive mb-100">
+        <table class="table" id="walletTable">
+            <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Transaction Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="walletHistory : ${walletHistoryList}">
+                <td>₹[(${walletHistory.amount})]</td>
+                <td th:text="${walletHistory.type}"></td>
+                <td th:text="${walletHistory.getTransactionDate()}"></td>
+                <td th:text="${walletHistory.getLocalTime()}"></td>
+                <td th:text="${walletHistory.transactionStatus}"></td>
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+
+</div>
+
+
+
+<footer class="main">
+    <section class="newsletter p-30 text-white wow fadeIn animated">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-md-3 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col flex-horizontal-center">
+                            <img class="icon-email" src="assets/imgs/theme/icons/icon-email.svg" alt="">
+                            <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                        </div>
+                        <div class="col my-4 my-md-0 des">
+                            <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- Subscribe Form -->
+                    <form class="form-subcriber d-flex wow fadeIn animated">
+                        <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                        <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                    </form>
+                    <!-- End Subscribe Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget-about font-md mb-md-5 mb-lg-0">
+                        <div class="logo logo-width-1 wow fadeIn animated">
+                            <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                        </div>
+                        <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                        <p class="wow fadeIn animated">
+                            <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                        </p>
+                        <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">About</h5>
+                    <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                    <ul class="footer-list wow fadeIn animated">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-12">
+                            <p class="wow fadeIn animated">From App Store or Google Play</p>
+                            <div class="download-app wow fadeIn animated">
+                                <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="assets/imgs/theme/app-store.jpg" alt=""></a>
+                                <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                            <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                            <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container pb-20 wow fadeIn animated">
+        <div class="row">
+            <div class="col-12 mb-20">
+                <div class="footer-bottom"></div>
+            </div>
+            <div class="col-lg-6">
+                <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+            </div>
+            <div class="col-lg-6">
+                <p class="text-lg-end text-start font-sm text-muted mb-0">
+                    Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <h5 class="mb-5">Now Loading</h5>
+                <div class="loader">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+<script>
+    function addWallet(event) {
+        console.log("hello")
+        event.preventDefault();
+        console.log("called");
+        const amountElement = document.getElementById("amount");
+        const cash = amountElement.value;
+        console.log(cash);
+
+        walletPayment(cash);
+    }
+
+    const walletPayment = (cash) => {
+
+        $.ajax(
+            {
+                url:'/user/add-wallet',
+                data:JSON.stringify({amount:cash}),
+                contentType: 'application/json',
+                type:'POST',
+                dataType:'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('[name="_csrf"]').attr('content')
+                },
+                success:function(response){
+                    console.log(response)
+
+                    if(response.status === "created"){
+
+                        let walletOptions ={
+                            key:'rzp_test_UZ0FfBq8viwCFY',
+                            amount: response.amount,
+                            currency:'INR',
+                            name:'ITALYMUSS',
+                            description:'Wallet Payment',
+                            //  image:'/imgs/theme/logo.png',
+                            order_id:response.id,
+                            handler:function(response){
+                                console.log(response.razorpay_payment_id);
+                                console.log(response.razorpay_order_id);
+                                console.log(response.razorpay_signature);
+                                verifyPayment(response);
+
+                            },
+                            prefill: {
+                                name:"",
+                                email:"",
+                                contact:""
+                            },
+                            notes:{
+                                address:"ITALYMUSS"
+                            },
+                            theme:{
+                                color: "#3399cc"
+                            }
+                        };
+                        let rzp = new Razorpay(walletOptions);
+
+                        rzp.on('payment.failed', function (response){
+                            console.log(response.error.code);
+                            console.log(response.error.description);
+                            console.log(response.error.source);
+                            console.log(response.error.step);
+                            console.log(response.error.reason);
+                            console.log(response.error.metadata.order_id);
+                            console.log(response.error.metadata.payment_id);
+                        });
+
+                        rzp.open();
+                    }
+                },
+                error:function(error){
+                    console.log(error)
+                    alert("something went wrong")
+                }
+            }
+        )
+
+        function verifyPayment(payment){
+            $.ajax({
+                url:'/user/verify-wallet',
+                method: 'post',
+                data:JSON.stringify(payment),
+                contentType: 'application/json',
+                dataType:'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('[name="_csrf"]').attr('content')
+                },
+                success:(response)=>{
+                    if(response.status){
+                        alert("congrats!! Money Added to the Wallet");
+                        location.href='/user/wallets'
+                    } else{
+                        alert("Payment failed!")
+                    }
+                }
+            });
+        }
+    }
+
+
+    const walletForm = document.getElementById("walletForm");
+    walletForm.addEventListener("submit", addWallet);
+
+
+    $(document).ready(function() {
+
+        $('#walletTable').DataTable();
+    });
+
+</script>
+
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js" integrity="sha512-OQlawZneA7zzfI6B1n1tjUuo3C5mtYuAWpQdg+iI9mkDoo7iFzTqnQHf+K5ThOWNJ9AbXL4+ZDwH7ykySPQc+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Template  JS -->
+<script src="./js/main.js?v=3.4"></script>
+<script src="./js/shop.js?v=3.4"></script>
+</body>
+
+
+</html>

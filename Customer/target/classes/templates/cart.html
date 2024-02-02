@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}"></head>
+
+<body>
+<header th:replace="~{fragments::maintop}"></header>
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">Home</a>
+                <span></span> Shop
+                <span></span> Your Cart
+            </div>
+        </div>
+    </div>
+    <section class="mt-50 mb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <div class="mb-5">
+                            <div th:if="${text}">
+<!--                                <p class="alert alert-danger" th:text="${text}"> Cart is Empty !!!!</p>-->
+                                <div class="alert-danger">
+                                    <p class="text-dark" th:text="${text}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table shopping-summery text-center clean" th:if="${shoppingCart.getTotalPrice()}">
+                            <thead>
+                            <tr class="main-heading">
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cartItem : ${cartItem}">
+                                <td class="image product-thumbnail" >
+                                    <!--                  <a th:href="@{/product-detail/{id}(id=${product.id})}"></a>-->
+                                    <img th:src="@{'/imgs/imageproduct/' + ${cartItem.product.images[0].getName()}}" alt="" />
+                                </td>
+                                <td class="product-des product-name">
+                                    <h5 class="product-name" th:text="${cartItem.product.name}"></h5>
+                                    <p class="font-xs" th:text="${cartItem.product.description}"></p>
+                                </td>
+<!--                                <td class="price" data-title="Price">-->
+<!--                                    <span th:text="'$' + ${cartItem.unitPrice}"></span>-->
+<!--                                </td>-->
+<!--                                <td class="actual-price" data-title="Actual Price">-->
+<!--                                    <span th:if="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.costPrice}"></span>-->
+<!--                                    <span th:if="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.salePrice}"></span>-->
+<!--                                </td>-->
+                                <td class="price" data-title="Price">
+                                    <span th:if="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.salePrice}"></span>
+                                    <span th:unless="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.costPrice}"></span>
+                                </td>
+
+                                <form th:action="@{'/update-cart/' + ${cartItem.product.id}}" method="post">
+
+                                    <input type = "hidden" name = "id" th:value = "${cartItem.product.id}" >
+<!--                                    <td class="quantity-box">-->
+<!--                                        <input type="number" name="quantity" th:value="${cartItem.quantity}" size="4"-->
+<!--                                               value="1" min="1" step="1" class="c-input-text qty text">-->
+
+                                    <td class="quantity-box">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="decrementQuantity(this)">-</button>
+                                            <input type="number" name="quantity" th:value="${cartItem.quantity}" size="4" value="1" min="1" step="1" class="c-input-text qty text" readonly />
+                                            <button type="button" class="btn btn-outline-secondary" onclick="incrementQuantity(this)">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="total-pr">
+<!--                                        <p th:text="'$' + ${cartItem.unitPrice * cartItem.quantity}"></p>-->
+                                        <p th:if="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.salePrice * cartItem.quantity}"></p>
+                                        <p th:unless="${cartItem.product.salePrice > 0}" th:text="'$' + ${cartItem.product.costPrice * cartItem.quantity}"></p>
+                                    </td>
+                                    <td>
+                                        <button type="submit" name="action-update" value="action-update" title="Update"
+                                                class="btn btn-primary">
+                                            Update
+                                        </button>
+                                        <!--                    <button type="submit" name="action-delete" value="action-delete" title="Delete"-->
+                                        <!--                            class="btn btn-danger">-->
+                                        <!--                      Delete-->
+                                        <!--                    </button>-->
+                                    </td>
+                                </form>
+                                <td>
+                                    <!--                  <p th:text="'$' + ${cartItem.unitPrice * cartItem.quantity}"></p>-->
+                                </td>
+                                <td>
+                                    <form th:action="@{'/delete-cart/' + ${cartItem.product.id}}" method="post">
+                                        <input type="hidden" name="id" th:value="${cartItem.product.id}">
+                                        <button type="submit" name="action-delete" value="action-delete" title="Delete" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-action text-end">
+                        <a class="btn" th:href="@{/index}"><i class="fi-rs-shopping-bag mr-10" ></i> Continue Shopping</a>
+                    </div>
+                    <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="border p-md-4 p-30 border-radius cart-totals text-center" th:if="${shoppingCart.totalPrice!=null}" >
+                                    <div class="heading_s1 mb-3">
+                                        <h4>Cart Totals</h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <td class="cart_total_label" >Cart Subtotal</td>
+                                                <td class="cart_total_amount" th:text="'₹' + ${shoppingCart.getTotalPrice()}"><span class="font-lg fw-900 text-brand"></span></td>
+                                            </tr>
+                                            <tr>\
+                                                <td class="cart_total_label">Shipping</td>
+                                                <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cart_total_label" >Total</td>
+                                                <td class="cart_total_amount" th:text="'₹' + ${shoppingCart.getTotalPrice()}"><strong><span class="font-xl fw-900 text-brand"></span></strong></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a href="#" class="btn" th:href="@{/check-out}"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="main">
+    <section class="newsletter p-30 text-white wow fadeIn animated">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-md-3 mb-lg-0">
+                    <div class="row align-items-right">
+                        <div class="col flex-horizontal-center">
+                            <img class="icon-email" src="assets/imgs/theme/icons/icon-email.svg" alt="">
+                            <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                        </div>
+                        <div class="col my-4 my-md-0 des">
+                            <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- Subscribe Form -->
+                    <form class="form-subcriber d-flex wow fadeIn animated">
+                        <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                        <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                    </form>
+                    <!-- End Subscribe Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget-about font-md mb-md-5 mb-lg-0">
+                        <div class="logo logo-width-1 wow fadeIn animated">
+                            <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                        </div>
+                        <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                        <p class="wow fadeIn animated">
+                            <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                        </p>
+                        <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">About</h5>
+                    <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                    <ul class="footer-list wow fadeIn animated">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-12">
+                            <p class="wow fadeIn animated">From App Store or Google Play</p>
+                            <div class="download-app wow fadeIn animated">
+                                <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="assets/imgs/theme/app-store.jpg" alt=""></a>
+                                <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                            <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                            <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container pb-20 wow fadeIn animated">
+        <div class="row">
+            <div class="col-12 mb-20">
+                <div class="footer-bottom"></div>
+            </div>
+
+            <div class="col-lg-6">
+                <p class="text-lg-end text-start font-sm text-muted mb-0">
+                    Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <h5 class="mb-5">Now Loading</h5>
+                <div class="loader">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this script at the end of your HTML file, after including jQuery -->
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script>
+
+    function incrementQuantity(button) {
+        var input = button.parentNode.querySelector('input');
+        input.stepUp(1);
+    }
+
+    function decrementQuantity(button) {
+        var input = button.parentNode.querySelector('input');
+        input.stepDown(1);
+    }
+    function confirmRemoval(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are about to remove this item from your cart',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Send AJAX request for removal
+                removeProduct(event.target.getAttribute('data-product-id'));
+            }
+        });
+    }
+
+    function removeProduct(productId) {
+        $.ajax({
+            url: '/delete-cart/' + productId,
+            type: 'post',
+            success: function (data) {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Removed',
+                        text: 'The product has been removed from your cart',
+                        icon: 'success',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'Ok'
+                    }).then(() => {
+                        // Update the cart table or display a message
+                        updateCartTable(data.updatedCartHtml);
+                    });
+                } else {
+                    console.log('error');
+                }
+            },
+        });
+    }
+
+    function updateCartTable(updatedCartHtml) {
+        // Replace the entire cart table with the updated HTML
+        $('#cartTable').html(updatedCartHtml);
+    }
+
+</script>
+
+
+<!-- Vendor JS-->
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<!-- Template  JS -->
+<script th:src="@{/js/main.js?v=3.4}"></script>
+<script th:src="@{/js/shop.js?v=3.4}"></script>
+</body>
+
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Checkout</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/css/main.css?v=3.4">
+</head>
+<body>
+<header th:replace="~{fragments::head}" ></header>
+
+<div th:replace="~{fragments::maintop}"></div>
+
+
+
+<div class="page-header breadcrumb-wrap">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html" rel="nofollow">Home</a>
+            <span></span> Shop
+            <span></span> Checkout
+        </div>
+    </div>
+</div>
+
+
+<main class="main" >
+    <section class="mt-50 mb-50" >
+        <div class="container">
+            <div th:if = "${success}" class = "text-center alert alert-success">
+                <p th:text = "${success}"></p>
+            </div>
+            <div th:if = "${error}" class = "text-center alert alert-danger">
+                <p th:text = "${error}"></p>
+            </div>
+
+            <!--      <div class="row mt-50">-->
+            <!--        <div class="col-lg-6 mt-25">-->
+            <!--         -->
+            <!--        </div>-->
+            <!--        <div class="col-lg-6 mt-25">-->
+            <!--          -->
+            <!--        </div>-->
+            <!--      </div>-->
+            <div class="row mt-25">
+                <div class="col-md-6" id="addressCards">
+                    <div class="mb-25 d-md-flex">
+                        <h4 class="mt-md-2 me-md-5 pe-md-5">Choose address for shipping</h4>
+                        <div class="float-end">
+                            <a th:href="@{/account}" class="btn btn-primary p-2 ms-md-5">
+                                <i class="material-icons md-plus"></i> Manage addresses
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card mb-5 mb-lg-0" th:each="address : ${addressList}">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <span class=" float-end text-success" th:if="${address.active==true}">Default</span>
+                            </h5>
+                            <div class="form-check mb-0">
+                                <input class="form-check-input selectCheckBox" type="radio" th:value="${address.id}" id="selectCheckBox">
+                                <label class="form-check-label" for="selectCheckBox">
+                                    Select
+                                </label>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p><strong th:text="${address.customer.firstName}"></strong></p>
+                            <p><strong th:text="${address.addressType}"></strong></p>
+                            <address>
+                                <span th:text="${address.addressLine1}"></span>
+                                <span th:text="${address.addressLine2}"></span>
+                                <span th:text="${address.state}"></span>
+                                <span th:text="${address.district}"></span>
+                                <span th:text="${address.pin_code}"></span>
+                                <span th:text="${address.contactNumber}"></span>
+                            </address>
+
+                            <!--                            <address th:text="${address.addressLine1}", th:text="${address.addressLine2}", th:text="${address.state}", th:text="${address.district}", th:text="${address.pin_code}" , th:text="${address.contactNumber}",></address>-->
+
+                        </div>
+                    </div>
+                    <div class="toggle_info mt-20">
+                        <span><i class="fi-rs-user mr-10"></i><span class="text-muted">Add New Address ?</span> <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to Add Address</a></span>
+                    </div>
+                    <div class="panel-collapse collapse login_form" id="loginform">
+                        <div class="panel-body">
+                            <form id="addressForm" method="post"  th:object="${addressDto}"  th:action="@{/add-address-checkout}">
+                                <div class="row mt-50">
+                                    <div class="form-group col-md-6">
+                                        <label>AddressType<span class="required">*</span></label>
+                                        <input id="addressType" class="form-control square" name="addressType" type="text" th:field="*{addressType}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Address Line 1<span class="required">*</span></label>
+                                        <input id="addressLine1" class="form-control square" name="addressLine1" type="text" th:field="*{addressLine1}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Address Line 2<span class="required">*</span></label>
+                                        <input id="addressLine2" class="form-control square" name="addressLine2" type="text" th:field="*{addressLine2}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>State<span class="required">*</span></label>
+                                        <input id="state" class="form-control square" name="state" type="text" th:field="*{state}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>District<span class="required">*</span></label>
+                                        <input id="district" class="form-control square" name="district" type="text" th:field="*{district}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>PinCode<span class="required">*</span></label>
+                                        <input id="pin_code" class="form-control square" name="pin_code" type="text" th:field="*{pin_code}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>ContactNumber<span class="required">*</span></label>
+                                        <input id="contactNumber" class="form-control square" name="contactNumber" type="text" th:field="*{contactNumber}">
+                                        <div class="error text-danger ms-2"></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit"  class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-50">
+                    <div class="order_review">
+                        <div class="mb-20">
+                            <h4>Your Orders</h4>
+                        </div>
+                        <form  id="hidden-form-placeorder">
+                            <div class="table-responsive order_table text-center">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2">Product</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="cartItem : ${cartItems}">
+                                        <td class="image product-thumbnail">
+                                            <img th:src="@{'/imgs/imageproduct/' + ${cartItem.product.images[0].getName()}}" >
+                                        </td>
+                                        <td>
+                                            <h3 class="product-name" th:text="${cartItem.product.name}"></h3>
+                                            <!--                                            <h5 th:text="'Size : ' + ${cartItem.size}"></h5>-->
+                                            <span th:text="'Quantity : ' + ${cartItem.quantity}" class="product-qty"></span>
+                                        </td>
+                                        <td th:text="'₹' + ${cartItem.unitPrice}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Shipping</th>
+                                        <td colspan="2"><em>Free Shipping</em></td>
+                                    </tr>
+                                    <tr th:if="${param.couponCode}">
+                                        <th>Coupon:</th>
+                                        <td th:text="${coupons.size() > 0 ?  param.couponName: 'No Coupon Applied'}"></td>
+                                    </tr>
+                                    <tr th:if="${param.couponCode}">
+                                        <th>Discount</th>
+                                        <td th:text="${param.couponOff} + '%'"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td colspan="2" class="product-subtotal"><span th:text="'₹' + ${shoppingCart.totalPrice}" id="amount" class="font-xl text-brand fw-900"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                            <div class="payment_method">
+                                <div class="mb-25">
+                                    <h5>Payment</h5>
+                                </div>
+                                <div class="payment_option">
+
+                                    <div class="custome-radio">
+                                        <input class="form-check-input payment_option" required="" type="radio"
+                                               name="payment_option"
+                                               value="COD" id="exampleRadios3" checked>
+                                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
+                                               data-target="#cod"
+                                               aria-controls="cod">Cash on Delivery</label>
+                                    </div>
+                                    <div class="custome-radio">
+                                        <input class="form-check-input payment_option" required="" type="radio"
+                                               value="RazorPay"
+                                               name="payment_option" id="exampleRadios5">
+                                        <label class="form-check-label " for="exampleRadios5" data-bs-toggle="collapse"
+                                               data-target="#RazorPay"
+                                               aria-controls="razorpay">Razor Pay</label>
+                                    </div>
+                                    <div class="custome-radio">
+                                        <input class="form-check-input payment_option" required="" type="radio"
+                                               value="Wallet" name="payment_option" id="exampleRadios6"
+                                               th:disabled="${wallet.balance < shoppingCart.totalPrice ? 'disabled' : null}">
+                                        <label class="form-check-label " for="exampleRadios6" data-bs-toggle="collapse"
+                                               data-target="#Wallet" aria-controls="wallet">Wallet <span>(Balance:[(${wallet.balance})])</span></label>
+                                        <a th:href="@{/wallets}">Add Balance</a>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="addressId" name="shippingAddress" value=""/>
+                                <input type="hidden" id="paymentMethod" name="paymentMethod" value=""/>
+                            </div>
+                        </form>
+                        <button  class="btn btn-fill-out btn-block hover-up" onclick="placeOrder('hidden-form-placeorder')" >Place Order</button>
+
+                    </div>
+                    <div class="toggle_info mt-20">
+                        <span><i class="fi-rs-label mr-10"></i><span class="text-muted">Have a coupon?</span> <a href="#coupon" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to enter your code</a></span>
+                    </div>
+                    <div class="panel-collapse collapse coupon_form" id="coupon">
+                        <div class="panel-body">
+                            <p class="mb-30 font-sm">If you have a coupon code, please apply it below.</p>
+                            <form method="post" th:action="@{/check-out/apply-coupon}">
+                                <div class="form-group">
+                                    <input type="text" th:value="${param.couponCode}" placeholder="Enter Coupon Code..." name="couponCode">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn  btn-md" type="submit" name="action" th:value="${param.couponCode == null ? 'apply' : 'remove'}" th:text="${param.couponCode == null ? 'Apply Coupon' : 'Remove Coupon'}"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mt-25" th:each="coupon : ${coupons}" style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+                        <p th:text="${coupon.description}"></p>
+                        <p>Code: <strong th:text="${coupon.code}"></strong></p>
+                        <p>Discount % : <strong th:text="${coupon.offPercentage}"></strong></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+</main>
+
+
+
+<footer class="main">
+    <section class="newsletter p-30 text-white wow fadeIn animated">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-md-3 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col flex-horizontal-center">
+                            <img class="icon-email" src="assets/imgs/theme/icons/icon-email.svg" alt="">
+                            <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                        </div>
+                        <div class="col my-4 my-md-0 des">
+                            <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                     Subscribe Form
+                    <form class="form-subcriber d-flex wow fadeIn animated">
+                        <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                        <button class="btn btn-fill-out btn-block hover-up" onclick="confirmPlaceOrder('hidden-form-placeorder')">Place Order</button>
+
+                    </form>
+                    <!-- End Subscribe Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget-about font-md mb-md-5 mb-lg-0">
+                        <div class="logo logo-width-1 wow fadeIn animated">
+                            <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                        </div>
+                        <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                        <p class="wow fadeIn animated">
+                            <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                        </p>
+                        <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                            <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">About</h5>
+                    <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                    <ul class="footer-list wow fadeIn animated">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-12">
+                            <p class="wow fadeIn animated">From App Store or Google Play</p>
+                            <div class="download-app wow fadeIn animated">
+                                <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="assets/imgs/theme/app-store.jpg" alt=""></a>
+                                <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                            <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                            <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container pb-20 wow fadeIn animated">
+        <div class="row">
+            <div class="col-12 mb-20">
+                <div class="footer-bottom"></div>
+            </div>
+            <div class="col-lg-6">
+                <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong class="text-brand">Italymuss</strong> - HTML Ecommerce Template </p>
+            </div>
+            <div class="col-lg-6">
+                <p class="text-lg-end text-start font-sm text-muted mb-0">
+                    Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <h5 class="mb-5">Now Loading</h5>
+                <div class="loader">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmPlaceOrder(formId) {
+        if (confirm("Are you sure you want to place this order?")) {
+            document.getElementById(formId).submit(); // Submit the form if confirmed
+        } else {
+            // Optionally, handle if the user cancels the confirmation
+            // e.g., provide feedback or perform another action
+            console.log("Order placement cancelled.");
+        }
+    }
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js" integrity="sha512-OQlawZneA7zzfI6B1n1tjUuo3C5mtYuAWpQdg+iI9mkDoo7iFzTqnQHf+K5ThOWNJ9AbXL4+ZDwH7ykySPQc+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage=urlParams.get("errorMessage");
+    const couponCode = urlParams.get("couponCode");
+    console.log("Error message from URL:"+ errorMessage);
+
+    // If couponCode is present, open the coupon form
+    if (couponCode) {
+        const couponForm = document.getElementById("coupon");
+        if (couponForm) {
+            couponForm.classList.add("show"); // Add the "show" class to make it visible
+        }
+    }
+
+    function placeOrder(formID) {
+        console.log("in place order")
+        const checkedAddress = $('.selectCheckBox:checked').val();
+        const paymentMethod = $('.payment_option:checked').val();
+        console.log("payment is"+paymentMethod);
+        console.log("address"+ checkedAddress);
+        if (checkedAddress === undefined) {
+            alert("Please choose a shipping address!!")
+        } else {
+            const addressId = document.getElementById("addressId");
+            const payment_Method = document.getElementById("paymentMethod");
+            addressId.value = checkedAddress;
+            payment_Method.value = paymentMethod;
+            console.log("psy dtsrt above")
+            paymentStart(addressId.value, payment_Method.value);
+        }
+    }
+
+    const paymentStart = (addressId, payment_Method) => {
+        console.log(addressId);
+        console.log(payment_Method);
+
+        $.ajax({
+                url: '/user/add-order',
+                data: JSON.stringify({
+                    addressId: addressId,
+                    payment_Method: payment_Method
+                }),
+                contentType: 'application/json',
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('[name="_csrf"]').attr('content')
+                },
+                success: function (response) {
+                    console.log("111111111"+response);
+                    if (response.status == "created") {
+                        console.log("something");
+                        let options = {
+                            key: 'rzp_test_UZ0FfBq8viwCFY',
+                            amount: response.amount,
+                            currency: 'INR',
+                            name: 'ITALYMUSS',
+                            description: 'Order Payment',
+                            //image: '/imgs/theme/logo.png',
+                            order_id: response.id,
+                            handler: function (response) {
+                                console.log(response.razorpay_payment_id);
+                                console.log(response.razorpay_order_id);
+                                console.log(response.razorpay_signature);
+                                verifyPayment(response);
+                                console.log("success");
+                            },
+                            prefill: {
+                                name: "",
+                                email: "",
+                                contact: ""
+                            },
+                            notes: {
+                                address: "ITALYMUSS"
+                            },
+                            theme: {
+                                color: "#3399cc"
+                            }
+                        };
+                        let rzp = new Razorpay(options);
+
+                        rzp.on('payment.failed', function (response) {
+                            console.log(response.error.code);
+                            console.log(response.error.description);
+                            console.log(response.error.source);
+                            console.log(response.error.step);
+                            console.log(response.error.reason);
+                            console.log(response.error.metadata.order_id);
+                            console.log(response.error.metadata.payment_id);
+                        });
+
+                        rzp.open();
+                    } else if (response.status == "Cash") {
+                        location.href = '/user/order-confirmation';
+
+                    } else if (response.status == "Wallet") {
+                        location.href = '/user/order-confirmation';
+
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error)
+                    alert("something went wrong")
+                }
+            }
+        )
+    };
+
+    function verifyPayment(payment) {
+        $.ajax({
+            url: '/user/verify-payment',
+            method: 'post',
+            data: JSON.stringify(payment),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: (response) => {
+                if (response.status) {
+                    alert("congrats!! Payment successful");
+                    location.href = '/user/order-confirmation'
+                } else {
+                    alert("Payment failed!")
+                }
+            }
+        });
+    }
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Vendor JS-->
+<script src="/js/vendor/address.js"></script>
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Template  JS -->
+<script src="./js/main.js?v=3.4"></script>
+<script src="./js/shop.js?v=3.4"></script>
+</body>
+
+</html>

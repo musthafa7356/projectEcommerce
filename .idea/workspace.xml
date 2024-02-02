@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="989f1efb-55c1-4b90-81eb-25f6b6b6353d" name="Changes" comment="second commit" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Admin" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e6865d95-7e94-4fc6-a970-c820e18a8616" />
+        <option name="url" value="https://github.com/musthafa7356/Italymuss---Ecommerce.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/src/main/java/com/example/library/service/CategoryService.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2YtdorGTwK87S69LTPxyYKip0vL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "20",
+    "last_opened_file_path": "D:/Brototype Weeks/Week 11/new cpy/Italymuss",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "D:/Brototype Weeks/Week 11/Italymuss/src/main/java/org/example/Main.java",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.library.model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Customer\src\main\resources\static\imgs\imageproduct\customer" />
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Customer\src\main\resources\static" />
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Customer\src\main\resources\templates" />
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Admin\src\main\resources\templates" />
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Admin\src\main\resources\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Customer\src\main\resources\static\imgs\imageproduct\" />
+      <recent name="D:\Brototype Weeks\Week 11\Italymuss\Customer\src\main\resources\static" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.library.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AdminApplication">
+    <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.admin.AdminApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CustomerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Customer" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.customer.CustomerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LibraryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Library" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.library.LibraryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="989f1efb-55c1-4b90-81eb-25f6b6b6353d" name="Changes" comment="" />
+      <created>1701348990632</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701348990632</updated>
+      <workItem from="1701348991585" duration="10120000" />
+      <workItem from="1701415317667" duration="7867000" />
+      <workItem from="1701459373232" duration="764000" />
+      <workItem from="1701489670513" duration="6793000" />
+      <workItem from="1701500464023" duration="1256000" />
+      <workItem from="1701596011483" duration="16617000" />
+      <workItem from="1701676123338" duration="16880000" />
+      <workItem from="1701838435477" duration="59345000" />
+      <workItem from="1702127154524" duration="27503000" />
+      <workItem from="1702194625820" duration="8516000" />
+      <workItem from="1702307048372" duration="12408000" />
+      <workItem from="1702352280933" duration="18042000" />
+      <workItem from="1702377535554" duration="585000" />
+      <workItem from="1702378214979" duration="11945000" />
+      <workItem from="1702394009382" duration="5614000" />
+      <workItem from="1702407933509" duration="11151000" />
+      <workItem from="1702443862325" duration="3050000" />
+      <workItem from="1702449453887" duration="7750000" />
+      <workItem from="1702624012815" duration="10755000" />
+      <workItem from="1702701157355" duration="7512000" />
+      <workItem from="1702788229592" duration="18092000" />
+      <workItem from="1702872854154" duration="7407000" />
+      <workItem from="1702884836717" duration="15042000" />
+      <workItem from="1702925667544" duration="3904000" />
+      <workItem from="1702930343557" duration="810000" />
+      <workItem from="1702962893586" duration="4047000" />
+      <workItem from="1702974138668" duration="8122000" />
+      <workItem from="1702995779700" duration="2019000" />
+      <workItem from="1703049479783" duration="16305000" />
+      <workItem from="1703128690357" duration="11610000" />
+      <workItem from="1703218959328" duration="7559000" />
+      <workItem from="1703314515443" duration="635000" />
+      <workItem from="1703394913163" duration="609000" />
+      <workItem from="1703648513277" duration="14849000" />
+      <workItem from="1703694660148" duration="7719000" />
+      <workItem from="1703736667739" duration="28548000" />
+      <workItem from="1703913994957" duration="15427000" />
+      <workItem from="1703939721322" duration="8784000" />
+      <workItem from="1704086265276" duration="34132000" />
+      <workItem from="1704206256879" duration="9659000" />
+      <workItem from="1704253984897" duration="32739000" />
+      <workItem from="1704294621655" duration="3109000" />
+      <workItem from="1704432603329" duration="3000" />
+      <workItem from="1704433200978" duration="7182000" />
+      <workItem from="1704773110077" duration="3915000" />
+      <workItem from="1704862733718" duration="11536000" />
+      <workItem from="1704958023084" duration="52498000" />
+      <workItem from="1705301746409" duration="7207000" />
+      <workItem from="1705329522059" duration="18886000" />
+      <workItem from="1705383993494" duration="8628000" />
+      <workItem from="1705405045768" duration="10693000" />
+      <workItem from="1705463370013" duration="8708000" />
+      <workItem from="1705634885576" duration="7727000" />
+      <workItem from="1705667215393" duration="3605000" />
+      <workItem from="1705899714644" duration="2324000" />
+      <workItem from="1705907876568" duration="7039000" />
+      <workItem from="1705932029348" duration="4531000" />
+      <workItem from="1705981703164" duration="10369000" />
+      <workItem from="1706030646175" duration="3227000" />
+      <workItem from="1706067330635" duration="8709000" />
+      <workItem from="1706092291360" duration="12547000" />
+      <workItem from="1706119568534" duration="3238000" />
+      <workItem from="1706163152277" duration="42855000" />
+      <workItem from="1706686485409" duration="13143000" />
+      <workItem from="1706796382988" duration="2609000" />
+      <workItem from="1706851747682" duration="6486000" />
+      <workItem from="1706866497294" duration="1851000" />
+      <workItem from="1706870009574" duration="963000" />
+      <workItem from="1706871048009" duration="497000" />
+    </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1706857431250</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706857431250</updated>
+    </task>
+    <task id="LOCAL-00002" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1706867207132</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706867207132</updated>
+    </task>
+    <task id="LOCAL-00003" summary="second commit">
+      <option name="closed" value="true" />
+      <created>1706867422693</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706867422693</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-core" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
+    <option featureType="dependencySupport" implementationName="java:org.thymeleaf:thymeleaf" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.xml.ws:jakarta.xml.ws-api" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="first commit" />
+    <MESSAGE value="second commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="second commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Customer/src/main/java/com/example/customer/controller/LoginController.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Customer/src/main/resources/static/js/vendor/bootstrap.bundle.min.js.map.js</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

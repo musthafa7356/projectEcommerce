@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}">
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head th:replace="~{fragments::head}">
+        <script>
+            document.getElementById("passwordForm").onsubmit = function(event) {
+                event.preventDefault();
+
+                // Additional password validation
+                var newPassword = document.getElementById("newpassword").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                // Check if passwords match
+                if (newPassword !== confirmPassword) {
+                    alert("Passwords do not match");
+                    return false; // Prevent form submission
+                } else if (newPassword.length < 8) { // Example: Minimum password length of 8 characters
+                    alert("Password must be at least 8 characters long");
+                    return false; // Prevent form submission
+                } else {
+                    console.log("Passwords match, proceeding with form submission");
+                    // Redirect to the same tab after successful password change
+                    var currentTab = document.querySelector('.tab-pane.fade.active.show').id;
+                    window.location.href = "/account?tab=" + currentTab;
+                }
+            };
+        </script>
+    </head>
+    <body>
+    <!-- ... rest of your HTML code ... -->
+
+</head>
+</head>
+<body>
+<header th:replace="~{fragments::maintop}"></header>
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a th:href="@{/index}" rel="nofollow">Home</a>
+                <span></span> Pages
+                <span></span> Account
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+
+        <div th:if = "${text}">
+            <p class = "alert alert-danger" th:text = "${text}"></p>
+        </div>
+    </div>
+
+
+
+
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11 m-auto">
+                    <div th:if="${message}" class="alert alert-success">
+                        <p th:text="${message}"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="bdashboard-ta" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+
+                                    <!--                                                                            <li class="nav-item">-->
+                                    <!--                                                                                <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>-->
+                                    <!--                                                                            </li>-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/wallets}" ><i class="fi-rs-user mr-10"></i>Wallet details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account" aria-selected="true"><i class="fi-rs-marker mr-10"></i>Account Details</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/logout}"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content dashboard-content">
+
+
+                                <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Hello! </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">addresses</a> and <a href="#">see your wallet details.</a></p>
+                                        </div>
+                                        <div class="card-header">
+                                            <h5 class="mb-0">My Profile </h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div th:object="${customer} ">
+                                                <div class="card mb-30" style="border: none;">
+                                                    <div>
+                                                        <label for="fullName" style="color: #888;">Full Name:</label>
+                                                        <span id="fullName" th:text="${customer.firstName + ' ' + customer.lastName}"></span>
+                                                    </div><br>
+                                                    <div >
+                                                        <label for="email" style="color: #888;">Email:</label>
+                                                        <span id="email" th:text="${customer.username}"></span>
+                                                    </div><br>
+                                                    <div>
+                                                        <label for="phone" style="color: #888;">Phone Number:</label>
+                                                        <span id="phone" th:text="${customer.phoneNumber}"></span>
+                                                    </div><br>
+                                                    <div>
+                                                        <label for="referralCode" style="color: #888;">My referral Code:</label>
+<!--                                                        <span id="referralCode" th:text="${customer.referralCode}"></span>-->
+                                                        <span id="referralCode" th:text="${customer.referralCode}">Referral Code Placeholder</span>
+
+                                                        <div class="form-group">
+                                                            <input type="email" id="emailAddress" style="width: 50%;" placeholder="Recipient's Email Address">
+                                                            <button type="button" class=" btn-light" style="margin-top: 11px; padding: 5px 10px; font-size: 10px; border:black;background-color: #e9edeb; border-radius: 5px;" id="shareViaEmailButton" onclick="shareViaEmail()">Share Referral Code via Email</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div >
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Your  Orders</h5>
+                                        </div>
+
+
+                                        <div class="table-main table-responsive">
+                                            <table class="table" id="orderTable">
+                                                <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th class="order-date">Order Date</th>
+                                                    <th>Delivery Date</th>
+                                                    <th class="price-pr">Order Status</th>
+                                                    <th>Total Price</th>
+                                                    <th class="total-pr">Payment Method</th>
+                                                    <th>Payment Status</th>
+                                                    <th>Order Tracking</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="order : ${orders}">
+                                                    <td>
+                                                        <p th:text="${order.id}"></p>
+                                                    </td>
+                                                    <td class="order-date">
+                                                        <span><b><span th:text="${order.orderDate}"></span></b></span>
+                                                    </td>
+                                                    <td class="name-pr" >
+                                                        <a th:if = "${order.accept==true}" href="#">
+                                                            <span th:text="${order.deliveryDate}"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td class="price-pr">
+                                                        <p th:text="${order.orderStatus}"></p>
+                                                    </td>
+                                                    <td class="total-pr">
+                                                        <p style="color: red">₹ <span th:text="${order.totalPrice}"></span></p>
+                                                    </td>
+                                                    <td class="total-pr" style="color: black">
+                                                        <span th:text="${order.paymentMethod}"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span th:unless="${#strings.equals(order.orderStatus, 'Cancelled')}">[(${order.paymentStatus})]</span>
+                                                        <span th:if="${#strings.equals(order.orderStatus, 'Cancelled')}">[(${order.orderStatus})]</span>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/order-view/{id}(id = ${order.id})}">View Order</a>
+                                                    </td>
+                                                    <td>
+                                                        <!--                                                            <a th:href="@{/order-view/{id}(id = ${order.id})}" class="button-cancel" >View</a>-->
+                                                        <a th:if="${order.orderStatus=='Delivered'}" th:href="@{/return-order/{id}(id = ${order.id})}" class="button-cancel" onclick="if (!(confirm('Are you sure you want to Return this Order?'))) return false" >Return</a>
+                                                        <a  th:unless="${order.orderStatus=='Cancelled' or order.orderStatus == 'Delivered' or order.orderStatus=='Returned' }" th:href="@{/cancel-order/{id}(id = ${order.id})}" class="button-cancel"
+                                                            onclick="if (!(confirm('Are you sure you want to Cancel this Order?'))) return false">Cancel</a>
+                                                    </td>
+                                                    </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                                    <div class="row">
+                                        <a th:href="@{/add-address}" class="plus-button ">
+                                            <span class="plus-sign"></span> Add New
+
+
+                                        <!--                                            </div>-->
+                                        <div class="col-lg-6 pt-10">
+
+
+                                            <div th:each="address : ${addresses} ">
+                                                <div class="card mb-30">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><span th:text="${address.addressType}"></span></h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <address>
+                                                            <input type="hidden" th:value="${address.id}">
+                                                            <span th:text="${address.addressLine1}"></span>,<br>
+                                                            <span th:text="${address.addressLine2}"></span>,<br>
+                                                            <span th:text="${address.state}"></span>, <br>
+                                                            <span th:text="${address.district}"></span><br>
+                                                            <span th:text="${address.pin_code}"></span>,<br>
+                                                            Ph:<span th:text="${address.contactNumber}"></span>
+
+                                                        </address>
+                                                        <p><span th:text="${address.district}"></span></p>
+                                                        <p><span th:text="${address.state}"></span></p>
+                                                        <p><span th:text="${address.pin_code}"></span></p>
+                                                        <a th:href="@{/update-address/{id} (id=${address.id})}" class="btn-small">update</a>
+                                                        <a th:href="@{/delete-address/{id}(id = ${address.id})}"
+                                                           onclick="if (!(confirm('Are you sure you want to Delete this Address?'))) return false">Delete</a>
+
+
+                                                    </div>
+                                                </div>
+                                            </div >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Account Details</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p>
+                                            <div class="card-body">
+                                                <h5 class="formTitle">
+                                                    <i>Personal Information</i>
+                                                </h5>
+                                                <div th:if="${success}" class="text-center alert alert-success">
+                                                    <p th:text="${success}"></p>
+                                                </div>
+                                                <form method="post" th:action="@{/update-account}" th:object="${customer}"  id="accountForm">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="inputLabel" for="firstName">First Name *</label>
+                                                            <input type="text" id="firstName"  name="firstName" placeholder="FirstName" th:field="*{firstName}">
+                                                            <div class="error text-danger ms-2"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="inputLabel" for="lastName">Last Name *</label>
+                                                            <input type="text" id="lastName"  name="lastName" placeholder="LastName" th:field="*{lastName}">
+                                                            <div class="error text-danger ms-2"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="inputLabel" for="phoneNumber">Mobile Number*</label>
+                                                            <input type="text" id="phoneNumber"  name="phoneNumber" placeholder="MobileNumber"  th:field="*{phoneNumber}">
+                                                            <div class="error text-danger ms-2"></div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit" name="submit" id="update" value="Submit">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                <div class="card-body">
+                                                    <form th:action="@{/change-password}" method="post"  onclick="accountdetails()" name="passwordForm" id="passwordForm">
+                                                        <h5 class="formTitle">
+                                                            <i>Change Password</i>
+                                                        </h5>
+                                                        <div th:if="${message}" class="text-center alert">
+                                                            <p th:text="${message}"></p>
+                                                        </div>
+                                                        <div class="inputDiv">
+                                                            <label class="inputLabel" for="password"> Current Password * </label>
+                                                            <input type="password" id="password" name="oldPassword" required>
+                                                        </div>
+
+                                                        <div class="inputDiv">
+                                                            <label class="inputLabel" for="newpassword">New Password *</label>
+                                                            <input type="password" id="newpassword" name="newPassword" required pattern="^[a-zA-Z0-9]{8,}$">
+                                                            <!-- pattern attribute for client-side validation -->
+                                                            <small>Password should be at least 8 characters long, alphanumeric only.</small>
+                                                        </div>
+
+                                                        <div class="inputDiv">
+                                                            <label class="inputLabel" for="confirmPassword">Confirm Password *</label>
+                                                            <input type="password" id="confirmPassword" name="repeatNewPassword" required>
+                                                        </div>
+
+                                                        <div class="buttonWrapper">
+                                                            <button type="submit" class="btn btn-fill-out submit" id="changepassword" name="submit" value="Submit">Change Password</button>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <script th:src="@{/js/account.js}"></script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<section class="section-padding footer-mid">
+    <div class="container pt-15 pb-20">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="widget-about font-md mb-md-5 mb-lg-0">
+                    <div class="logo logo-width-1 wow fadeIn animated">
+                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                    <p class="wow fadeIn animated">
+                        <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                    </p>
+                    <p class="wow fadeIn animated">
+                        <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                    </p>
+                    <p class="wow fadeIn animated">
+                        <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                    </p>
+                    <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                    <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                        <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                        <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                        <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                        <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                        <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <h5 class="widget-title wow fadeIn animated">About</h5>
+                <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Delivery Information</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Support Center</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2  col-md-3">
+                <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                <ul class="footer-list wow fadeIn animated">
+                    <li><a href="#">Sign In</a></li>
+                    <li><a href="#">View Cart</a></li>
+                    <li><a href="#">My Wishlist</a></li>
+                    <li><a href="#">Track My Order</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Order</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                <div class="row">
+                    <div class="col-md-8 col-lg-12">
+                        <p class="wow fadeIn animated">From App Store or Google Play</p>
+                        <div class="download-app wow fadeIn animated">
+                            <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="assets/imgs/theme/app-store.jpg" alt=""></a>
+                            <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                        <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                        <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container pb-20 wow fadeIn animated">
+    <div class="row">
+        <div class="col-12 mb-20">
+            <div class="footer-bottom"></div>
+        </div>
+        <div class="col-lg-6">
+            <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+        </div>
+        <div class="col-lg-6">
+            <p class="text-lg-end text-start font-sm text-muted mb-0">
+                Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+            </p>
+        </div>
+    </div>
+</div>
+</footer>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <h5 class="mb-5">Now Loading</h5>
+                <div class="loader">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const accountForm = document.getElementById('accountForm');
+
+        accountForm.addEventListener('submit', function (event) {
+            let isValid = true;
+
+            // Reset error messages
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(function (errorElement) {
+                errorElement.textContent = '';
+            });
+
+            // Validate First Name
+            isValid = validateField('firstName', 'First Name is required.', /^[a-zA-Z\s]+$/, 'Invalid characters in First Name.', isValid);
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+            // Validate Last Name
+            isValid = validateField('lastName', 'Last Name is required.', /^[a-zA-Z\s]+$/, 'Invalid characters in Last Name.', isValid);
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+            // Validate Phone Number
+            isValid = validateField('phoneNumber', 'Phone Number is required.', /^\d{10}$/, 'Invalid characters in Phone Number.', isValid);
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+
+        function validateField(fieldName, requiredMessage, pattern, invalidMessage, isValid) {
+            const field = document.getElementById(fieldName);
+            const errorElement = field.nextElementSibling;
+
+            if (field.value.trim() === '') {
+                displayError(errorElement, requiredMessage);
+                return false;
+            } else if (!pattern.test(field.value.trim())) {
+                displayError(errorElement, invalidMessage);
+                return false;
+            }
+
+            return isValid;
+        }
+
+        function displayError(element, errorMessage) {
+            element.textContent = errorMessage;
+        }
+    });
+    $("#update").on("click", function (event) {
+        alert("Button clicked!");
+        //alert("Inside functionnnnnnn")
+        event.preventDefault();
+        $("#bdashboard-ta").hide();
+        $("#account-tab").show();
+
+        $("#orders-tab").hide();
+
+        $("#address").hide();
+
+
+
+
+    });
+ function accountdetails(event){
+     alert("Inside functionnnnnnn")
+     event.preventDefault();
+     $("#bdashboard-ta").hide();
+     $("#account-tab").show();
+     //$("#accountForm").show();
+    // $("#passwordForm").show();
+     $("#orders-tab").hide();
+
+     $("#address").hide();
+
+
+
+ }
+    function shareViaEmail() {
+        var referralCode = document.getElementById("referralCode").textContent;
+        var emailAddress = document.getElementById("emailAddress").value;
+        if (!emailAddress) {
+            alert("Please enter a recipient's email address.");
+            return;}
+        console.log("Referral Code: " + referralCode);
+        console.log("Email Address: " + emailAddress);
+        $.ajax({
+            type: "POST",
+            url: "/user/shareReferral",
+            data: {
+                referralCode: referralCode,
+                emailAddress: emailAddress
+            },
+            success: function (response) {
+                console.log("AJAX request successful.");
+                if (response === "success") {
+                    alert("Referral code shared successfully.");
+                } else {
+                    alert("Failed to share the referral code.");
+                }},
+            error: function (xhr, status, error) {
+                console.error("An error occurred while sharing the referral code: " + error);
+                alert("An error occurred while sharing the referral code.");
+            }
+        });
+    }
+</script>
+
+
+<script th:src="@{/js/account.js}"></script>
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<!-- Template  JS -->
+<!--<script th:src="@{/js/main.js?v=3.4}"></script>-->
+<script th:src="@{/js/main.js?v=3.4}"></script>
+
+<script th:src="@{/js/shop.js?v=3.4}"></script>
+<script th:src="@{/js/address}"></script>
+<script th:src="@{/js/account}"></script>
+</body>
+
+</html>

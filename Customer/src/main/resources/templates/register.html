@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <title>Pursify</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css?v=3.4}">
+
+</head>
+
+<body>
+<header th:replace="~{fragments::maintop}">
+</header>
+
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">Home</a>
+                <!-- <span></span> Pages -->
+                <span></span> Login / Register
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-105">
+            <div class="col-lg-6">
+                <div class="login_wrap widget-taber-content p-20 background-white border-radius-5"> <!-- Reduced padding here -->
+                    <div class="padding_eight_all bg-white">
+                        <div class="heading_s1">
+                            <h3 class="mb-30">Create an Account</h3>
+                        </div>
+                        <!--                        <p class="mb-30 font-sm"> &lt;!&ndash; Reduced margin here &ndash;&gt;-->
+                        <!--                            Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.-->
+                        <!--                        </p>-->
+                        <div th:if = "${success}">
+                            <p class = "alert alert-success" th:text = "${success}"></p>
+                        </div>
+                        <div th:if = "${error}">
+                            <p class = "alert alert-danger" th:text = "${error}"></p>
+                        </div>
+                        <form name="registrationForm" th:action="@{/do-register}" method="post" th:object="${customerDto}" onsubmit="return validateForm(event)">
+                            <div class="form-group">
+                                <input type="text"  name="firstName" th:field = "*{firstName}" placeholder="First Name" >
+                            </div>
+                            <div class="alert alert-danger" th:if = "${#fields.hasErrors('firstName')}"
+                                 th:errors = "*{firstName}"></div>
+                            <div class="form-group">
+                                <input type="text"  name="lastName" th:field = "*{lastName}" placeholder="Last Name" >
+                            </div>
+                            <div class="alert alert-danger" th:if = "${#fields.hasErrors('lastName')}"
+                                 th:errors = "*{lastName}"></div>
+                            <div class="form-group">
+                                <input type="email"  name="username" th:field = "*{username}" placeholder="Email" >
+                                <div class="alert alert-danger" th:if = "${#fields.hasErrors('username')}"
+                                     th:errors = "*{username}"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="number"  name="phoneNumber" th:field = "*{phoneNumber}" placeholder="Mobile Number" >
+                            </div>
+                            <div class="alert alert-danger" th:if = "${#fields.hasErrors('phoneNumber')}"
+                                 th:errors = "*{phoneNumber}"></div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" th:field = "*{password}" placeholder="Password" >
+                                <div class="alert alert-danger" th:if = "${#fields.hasErrors('password')}"
+                                     th:errors = "*{password}"></div>
+                            </div>
+                            <div class="form-group">
+                                <input  type="password" name="confirmPassword" th:field = "*{confirmPassword}" placeholder="Confirm password" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="referralCode" th:field="*{referralCode}" placeholder="Referral Code" class="form-control">
+                                <div class="form-group">
+                                    <button type="button" class=" btn-light" id="checkReferralCodeButton" style="margin-top: 11px; padding: 5px 10px; font-size: 10px; border:black;background-color: #e9edeb; border-radius: 5px;">Check Referral Code</button>
+                                </div>
+                            </div>
+
+                            <div class="login_footer form-group">
+                                <!--                                <div class="chek-form">-->
+                                <!--                                   < <div class="custome-checkbox">-->
+                                <!--                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="">-->
+                                <!--                                        <label class="form-check-label" for="exampleCheckbox12"><span>I agree to terms &amp; Policy.</span></label>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <a href="page-privacy-policy.html"><i class="fi-rs-book-alt mr-5 text-muted"></i>Learn more</a>-->
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Submit &amp; Register</button>
+                            </div>
+                        </form>
+                        <div class="divider-text-center mt-15 mb-15">
+                            <span>or</span>
+                        </div>
+                        <!-- Social login buttons can be added here if needed -->
+                        <div class="text-muted text-center">Already have an account? <a th:href="@{/login}">Sign in now</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- </section> -->
+</main>
+<footer class="main">
+    <section class="newsletter p-30 text-white wow fadeIn animated">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-md-3 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col flex-horizontal-center">
+                            <img class="icon-email" th:src="@{/imgs/theme/icons/icon-email.svg}" alt="">
+                            <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                        </div>
+                        <div class="col my-4 my-md-0 des">
+                            <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- Subscribe Form -->
+                    <form class="form-subcriber d-flex wow fadeIn animated">
+                        <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                        <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                    </form>
+                    <!-- End Subscribe Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget-about font-md mb-md-5 mb-lg-0">
+                        <div class="logo logo-width-1 wow fadeIn animated">
+                            <a href="index.html"><img src="/imgs/theme/logo.svg" alt="logo"></a>
+                        </div>
+                        <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                        <p class="wow fadeIn animated">
+                            <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                        </p>
+                        <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            <a href="#"><img th:src="@{/imgs/theme/icons/icon-facebook.svg}" alt=""></a>
+                            <a href="#"><img th:src="@{/imgs/theme/icons/icon-twitter.svg}" alt=""></a>
+                            <a href="#"><img th:src="@{/imgs/theme/icons/icon-instagram.svg}" alt=""></a>
+                            <a href="#"><img th:src="@{/imgs/theme/icons/icon-pinterest.svg}" alt=""></a>
+                            <a href="#"><img th:src="@{/imgs/theme/icons/icon-youtube.}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">About</h5>
+                    <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                    <ul class="footer-list wow fadeIn animated">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-12">
+                            <p class="wow fadeIn animated">From App Store or Google Play</p>
+                            <div class="download-app wow fadeIn animated">
+                                <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" th:src="@{/imgs/theme/app-store.jpg}" alt=""></a>
+                                <a href="#" class="hover-up"><img th:src="@{/imgs/theme/google-play.jpg}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                            <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                            <img class="wow fadeIn animated" th:src="@{/imgs/theme/payment-method.png}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container pb-20 wow fadeIn animated">
+        <div class="row">
+            <div class="col-12 mb-20">
+                <div class="footer-bottom"></div>
+            </div>
+
+            <div class="col-lg-6">
+                <p class="text-lg-end text-start font-sm text-muted mb-0">
+                    Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+    window.onload = function() {
+        function validateForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var nameRegex = /^[a-zA-Z\s-']+$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var phoneNumberRegex = /^\d{10}$/;
+
+            var firstName = document.forms["registrationForm"]["firstName"].value.trim();
+            var lastName = document.forms["registrationForm"]["lastName"].value.trim();
+            var username = document.forms["registrationForm"]["username"].value.trim();
+            var phoneNumber = document.forms["registrationForm"]["phoneNumber"].value.trim();
+            var password = document.forms["registrationForm"]["password"].value.trim();
+            var confirmPassword = document.forms["registrationForm"]["confirmPassword"].value.trim();
+
+            // Reset previous error messages
+            document.querySelectorAll('.alert').forEach(function (el) {
+                el.innerHTML = '';
+            });
+
+            var isValid = true;
+
+
+
+            if (firstName === "" || !nameRegex.test(firstName)) {
+                document.querySelector('input[name="firstName"] + .alert').innerHTML = "Please enter a valid First Name";
+                isValid = false;
+            }
+
+            if (lastName === "" || !nameRegex.test(lastName)) {
+                document.querySelector('input[name="lastName"] + .alert').innerHTML = "Please enter a valid Last Name";
+                isValid = false;
+            }
+
+            if (username === "" || !emailRegex.test(username)) {
+                document.querySelector('input[name="username"] + .alert').innerHTML = "Please enter a valid email address";
+                isValid = false;
+            }
+
+            if (phoneNumber === "" || !phoneNumberRegex.test(phoneNumber)) {
+                document.querySelector('input[name="phoneNumber"] + .alert').innerHTML = "Please enter a valid 10-digit Phone Number";
+                isValid = false;
+            }
+
+            if (password === "") {
+                document.querySelector('input[name="password"] + .alert').innerHTML = "Password must be filled out";
+                isValid = false;
+            }
+
+            if (confirmPassword === "") {
+                document.querySelector('input[name="confirmPassword"] + .alert').innerHTML = "Confirm Password must be filled out";
+                isValid = false;
+            }
+
+            // Perform similar checks for other fields
+
+            if (isValid) {
+                // If all validations pass, submit the form
+                document.forms["registrationForm"].submit();
+            }
+
+            return false;
+        }
+    }
+
+    $(document).ready(function () {
+        console.log("start")
+        function checkReferralCode() {
+            var referralCode = $("#referralCode").val(); // Get the entered referral code
+            console.log(referralCode)
+            // Send an AJAX request to your server to check the referral code
+            $.ajax({
+                type: "POST",
+                url: '/user/checkReferralCode',
+                data: { referralCode: referralCode },
+                success: function (response) {
+                    if (response === "valid") {
+                        alert("Referral code is valid. Thank you for accepting the Referral");
+                    } else if (response === "invalid") {
+                        alert("Referral code is not associated with any account.");
+                    } else {
+                        alert("An error occurred while checking the referral code.");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while checking the referral code.");
+                }
+            });
+        }
+        console.log("referralCode");
+
+        $("#checkReferralCodeButton").click(function (event) {
+            event.preventDefault();
+            checkReferralCode();
+        });
+    });
+
+</script>
+
+
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<!-- Template  JS -->
+<script th:src="@{.//js/main.js?v=3.4}"></script>
+</body>
+
+</html>

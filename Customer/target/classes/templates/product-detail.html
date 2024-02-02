@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}">
+
+
+</head>
+<body>
+<!-- Quick view -->
+
+<!--Main Top Header menu -->
+<header th:replace="~{fragments::maintop}"></header>
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a th:href="@{/index}" rel="nofollow">Home</a>
+                <span></span> Fashion
+                <span></span> Abstract Print Patchwork Dress
+            </div>
+        </div>
+    </div>
+    <section class="mt-50 mb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="product-detail accordion-detail">
+                        <div class="row mb-50">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="detail-gallery">
+                                    <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                    <!-- MAIN SLIDES -->
+                                    <div class="product-image-slider">
+                                        <th:block th:each="image:${product.images}" >
+                                            <figure class="border-radius-10">
+                                                <img th:src="@{'/imgs/imageproduct/' + ${image.name}}" alt="product image">
+                                            </figure>
+                                        </th:block>
+                                    </div>
+                                    <!-- THUMBNAILS -->
+                                    <div class="slider-nav-thumbnails pl-15 pr-15">
+                                        <th:block th:each="image:${product.images}" >
+
+                                            <div><img th:src="@{'/imgs/imageproduct/' + ${image.name}}" alt="product image"></div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                                <!-- End Gallery -->
+                                <div class="social-icons single-share">
+                                    <ul class="text-grey-5 d-inline-block">
+                                        <li><strong class="mr-10">Share this:</strong></li>
+                                        <li class="social-facebook"><a href="#"><img src="/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
+                                        <li class="social-twitter"> <a href="#"><img src="/imgs/theme/icons/icon-twitter.svg" alt=""></a></li>
+                                        <li class="social-instagram"><a href="#"><img src="/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
+                                        <li class="social-linkedin"><a href="#"><img src="/imgs/theme/icons/icon-pinterest.svg" alt=""></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="detail-info">
+                                    <h2 class="title-detail" th:text="${product.name}"></h2>
+                                    <div class="product-detail-rating">
+                                        <div class="pro-details-brand">
+                                            <span> Type: <a th:text="${product.category.name}" ></a></span>
+                                        </div>
+                                        <div class="product-rate-cover text-end">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width:90%">
+                                                </div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix product-price-cover">
+                                        <div class="product-price primary-color float-left">
+<!--                                            <ins><span class="text-brand">₹<span th:text="${product.costPrice}"></span></span></ins>-->
+                                            <div class="product-price primary-color float-left">
+                                                <span th:if="${product.salePrice > 0}">Offer Price: ₹<span th:text="${product.salePrice}"></span></span>
+                                                <span th:unless="${product.salePrice > 0}">Actual Price: ₹<span th:text="${product.costPrice}"></span></span>
+                                                <span th:if="${product.salePrice > 0}" class="old-price">Actual Price: ₹<span th:text="${product.costPrice}"></span></span>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                    <div class="short-desc mb-30">
+                                        <p th:text="${product.getDescription()}"></p>
+                                    </div>
+
+                                    <!-- Size Selection Dropdown -->
+                                    <div class="form-group">
+                                        <label for="sizeSelect">Select Size:</label>
+                                        <select class="form-control" id="sizeSelect">
+                                            <option value="">- Select Size -</option>
+                                            <!-- Loop through available sizes using Thymeleaf -->
+                                            <th:block th:each="size : ${product.sizes}">
+                                                <option th:value="${size.id}" th:text="${size.name}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+
+                                    <!-- Color Selection Dropdown -->
+                                    <div class="form-group">
+                                        <label for="colorSelect">Select Color:</label>
+                                        <select class="form-control" id="colorSelect">
+                                            <option value="">- Select Color -</option>
+                                            <!-- Loop through available colors using Thymeleaf -->
+                                            <th:block th:each="color : ${product.colors}">
+                                                <option th:value="${color.id}" th:text="${color.name}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+
+                                    <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                    <div class="detail-extralink">
+                                        <div class="product-extra-link2">
+                                            <a aria-label="Buy now" class="action-btn" th:href="@{/add-to-cart/{id}(id=${product.id})}"><i class="fi-rs-shopping-bag-add"></i>Add to Cart</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Detail Info -->
+                            </div>
+                        </div>
+
+                        <div class="banner-img banner-big wow fadeIn f-none animated mt-50">
+                            <img class="border-radius-10" src="/imgs/banner/banner-4.png" alt="">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="main">
+    <section class="newsletter p-30 text-white wow fadeIn animated">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-md-3 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col flex-horizontal-center">
+                            <img class="icon-email" src="/imgs/theme/icons/icon-email.svg" alt="">
+                            <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                        </div>
+                        <div class="col my-4 my-md-0 des">
+                            <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- Subscribe Form -->
+                    <form class="form-subcriber d-flex wow fadeIn animated">
+                        <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                        <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                    </form>
+                    <!-- End Subscribe Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget-about font-md mb-md-5 mb-lg-0">
+                        <div class="logo logo-width-1 wow fadeIn animated">
+                            <a href="index.html"><img src="/imgs/theme/logo.svg" alt=""></a>
+                        </div>
+                        <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                        <p class="wow fadeIn animated">
+                            <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                        </p>
+                        <p class="wow fadeIn animated">
+                            <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                        </p>
+                        <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            <a href="#"><img src="/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                            <a href="#"><img src="/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                            <a href="#"><img src="/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                            <a href="#"><img src="/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                            <a href="#"><img src="/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">About</h5>
+                    <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                    <ul class="footer-list wow fadeIn animated">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-12">
+                            <p class="wow fadeIn animated">From App Store or Google Play</p>
+                            <div class="download-app wow fadeIn animated">
+                                <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="/imgs/theme/app-store.jpg" alt=""></a>
+                                <a href="#" class="hover-up"><img src="/imgs/theme/google-play.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                            <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                            <img class="wow fadeIn animated" src="/imgs/theme/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container pb-20 wow fadeIn animated">
+        <div class="row">
+            <div class="col-12 mb-20">
+                <div class="footer-bottom"></div>
+            </div>
+
+            <div class="col-lg-6">
+                <p class="text-lg-end text-start font-sm text-muted mb-0">
+                    Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <h5 class="mb-5">Now Loading</h5>
+                <div class="loader">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Add your JavaScript/jQuery code here to handle dropdown selections
+    $(document).ready(function() {
+        // Example code to log selected size and color IDs
+        $('#sizeSelect').change(function() {
+            var selectedSize = $(this).val();
+            console.log("Selected Size ID: " + selectedSize);
+            // Add your logic for handling the selected size
+        });
+
+        $('#colorSelect').change(function() {
+            var selectedColor = $(this).val();
+            console.log("Selected Color ID: " + selectedColor);
+            // Add your logic for handling the selected color
+        });
+    });
+</script>
+
+<!-- Vendor JS-->
+<script th:src="@{/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/plugins/slick.js}"></script>
+<script th:src="@{/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/js/plugins/wow.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui.js}"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/js/plugins/select2.min.js}"></script>
+<script th:src="@{/js/plugins/waypoints.js}"></script>
+<script th:src="@{/js/plugins/counterup.js}"></script>
+<script th:src="@{/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/js/plugins/isotope.js}"></script>
+<script th:src="@{/js/plugins/scrollup.js}"></script>
+<script th:src="@{/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<!-- Template  JS -->
+<script th:src="@{/js/main.js?v=3.4}"></script>
+<script th:src="@{/js/shop.js?v=3.4}"></script>
+</body>
+</html>
