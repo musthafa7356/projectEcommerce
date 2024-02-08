@@ -109,7 +109,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>com.example.library</groupId>
             <artifactId>Library</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
