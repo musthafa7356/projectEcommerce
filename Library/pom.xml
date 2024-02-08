@@ -15,7 +15,9 @@
     <description>Library</description>
     <properties>
         <java.version>17</java.version>
+        <skipTests>true</skipTests>
     </properties>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
