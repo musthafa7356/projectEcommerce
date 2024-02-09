@@ -16,8 +16,8 @@ import java.nio.file.StandardOpenOption;
 public class ImageUpload {
     String rootpath = System.getProperty("user.home");
 
-    String UPLOAD_FOLDER = "/home/ubuntu/Admin/src/main/resources/static/img/imageproduct";
-    String UPLOAD_FOLDER_CUSTOMER = "/home/ubuntu/Customer/src/main/resources/static/img/imageproduct";
+    String UPLOAD_FOLDER = "/home/ubuntu/projectEcommerce/Admin/src/main/resources/static/img/imageproduct";
+    String UPLOAD_FOLDER_CUSTOMER = "/home/ubuntu/projectEcommerce/Customer/src/main/resources/static/img/imageproduct";
 
     public String uploadFile(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
