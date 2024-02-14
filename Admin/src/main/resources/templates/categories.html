@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head th:replace="~{fragments::header}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body id="page-top">
@@ -147,7 +147,8 @@
 <div th:replace="~{fragments::script}"></div>
 
 <script>
-    $('document').ready(function() {
+    $(document).ready(function() {
+        // Event handler for edit button
         $('table #editButton').on('click', function (event) {
             event.preventDefault();
             var href = $(this).attr('href');
@@ -158,101 +159,34 @@
 
             $('#editModal').modal();
         });
-    });
-</script>
 
-<script>
-    function validateCategoryName() {
-        var categoryName = document.getElementById("name").value;
-        var nameRegex = /^[a-zA-Z\s]+$/;
-
-        if (!nameRegex.test(categoryName)) {
-            document.getElementById("nameError").innerText = "Please enter only letters or spaces (no numbers)";
-            return false;
-        } else {
-            document.getElementById("nameError").innerText = "";
-            return true;
-        }
-    }
-
-    $(document).ready(function() {
+        // Initialize DataTables plugin
         $('#dataTable').DataTable();
     });
-
-    // // Function to show SweetAlert2 confirmation
-    // function showConfirmation(message, confirmCallback) {
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: message,
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             confirmCallback(); // Invoke the callback if user confirms
-    //         }
-    //     });
-    // }
-    //
-    // // Function to handle enable action
-    // function enableCategory(id) {
-    //     var enableUrl = "/enable-category/" + id;
-    //
-    //
-    //     function confirmEnable() {
-    //
-    //         $.ajax({
-    //             type: 'GET',
-    //             url: enableUrl,
-    //             success: function (response) {
-    //
-    //                 location.reload();
-    //             },
-    //             error: function (error) {
-    //                 console.error('Error enabling category:', error);
-    //
-    //             }
-    //         });
-    //     }
-    //
-    //
-    //     showConfirmation('Do you want to enable this category?', confirmEnable);
-    // }
-    //
-    // // Function to handle disable action
-    // function disableCategory(id) {
-    //
-    //     var disableUrl = "/disable-category/" + id;
-    //
-    //     function confirmDisable() {
-    //         $.ajax({
-    //             type: 'GET',
-    //             url: disableUrl,
-    //             success: function (response) {
-    //
-    //                 location.reload();
-    //             },
-    //             error: function (error) {
-    //                 console.error('Error disabling category:', error);
-    //             }
-    //         });
-    //     }
-    //
-    //     // Show confirmation before disabling
-    //     showConfirmation('Do you want to disable this category?', confirmDisable);
-    // }
-
 </script>
+<script>
+        // Validation function for category name
+        function validateCategoryName() {
+            var categoryName = document.getElementById("name").value;
+            var nameRegex = /^[a-zA-Z\s]+$/;
 
+            if (!nameRegex.test(categoryName)) {
+                document.getElementById("nameError").innerText = "Please enter only letters or spaces (no numbers)";
+                return false;
+            } else {
+                document.getElementById("nameError").innerText = "";
+                return true;
+            }
+        }
+</script>
+    
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Add DataTables script before your custom scripts -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 
 </body>
