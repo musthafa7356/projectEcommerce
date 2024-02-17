@@ -24,7 +24,7 @@ public class CouponServiceImpl implements CouponService {
         coupon.setCode(couponDto.getCode());
         coupon.setDescription(couponDto.getDescription());
         coupon.setCount(couponDto.getCount());
-        coupon.setOffPercentage(couponDto.getMaxOff());
+        coupon.setOffPercentage(couponDto.getOffPercentage());
         coupon.setMaxoff(couponDto.getMaxOff());
         coupon.setMinOrderAmount(couponDto.getMinOrderAmount());
         coupon.setExpiryDate(couponDto.getExpiryDate());
