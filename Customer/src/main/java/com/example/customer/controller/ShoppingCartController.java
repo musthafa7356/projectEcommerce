@@ -53,6 +53,7 @@ public class ShoppingCartController {
             Set<CartItem> item = null;
             if(cart!=null) {
                  item = cart.getCartItems();
+            }
             if (cart == null || cart.getCartItems().isEmpty()){
                 System.out.println("cart null");
                 model.addAttribute("text", "Cart is empty");
