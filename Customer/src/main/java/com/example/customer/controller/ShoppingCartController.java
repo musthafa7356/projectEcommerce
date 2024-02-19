@@ -50,7 +50,9 @@ public class ShoppingCartController {
         else {
             Customer customer = customerService.findByUsername(principal.getName());
             ShoppingCart cart = customer.getCart();
-            Set<CartItem> item = cart.getCartItems();
+            Set<CartItem> item = null;
+            if(cart!=null) {
+                 item = cart.getCartItems();
             if (cart == null || cart.getCartItems().isEmpty()){
                 System.out.println("cart null");
                 model.addAttribute("text", "Cart is empty");
